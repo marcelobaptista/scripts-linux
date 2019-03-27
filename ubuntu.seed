@@ -1,0 +1,94 @@
+d-i auto-install/enable boolean true
+d-i debconf/priority select critical
+
+####################################################################
+# Configurações de rede
+####################################################################
+
+d-i netcfg/enable boolean true
+d-i netcfg/choose_interface select auto
+d-i netcfg/disable_dhcp boolean false
+
+####################################################################
+# Particionamento de Discos
+####################################################################
+
+ubiquity partman-auto/init_automatically_partition select Guided - use entire disk
+ubiquity partman-auto/disk string /dev/sda
+ubiquity partman-auto/method string regular
+ubiquity partman-auto/choose_recipe select All files in one partition (recommended for new users)
+ubiquity partman/confirm_write_new_label boolean true
+ubiquity partman/choose_partition select Finish partitioning and write changes to disk
+ubiquity partman/confirm boolean  true
+d-i partman-lvm/device_remove_lvm boolean true
+d-i partman-md/device_remove_md boolean true
+d-i partman-lvm/confirm boolean true
+d-i partman-lvm/confirm boolean true
+d-i partman/confirm_write_new_label boolean true
+d-i partman/choose_partition select Finish partitioning and write changes to disk
+d-i partman/confirm boolean true
+d-i partman-md/confirm boolean true
+d-i partman-partitioning/confirm_write_new_label boolean true
+d-i partman/choose_partition select finish
+d-i partman/confirm boolean true
+d-i partman/confirm_nooverwrite boolean true
+
+####################################################################
+# Configurações de teclado, idioma e hora
+####################################################################
+
+d-i console-setup/ask_detect boolean false
+d-i keyboard-configuration/layoutcode string br
+d-i keyboard-configuration/variantcode string 
+d-i debian-installer/locale string pt_BR.UTF-8
+d-i time/zone select America/Sao_Paulo
+d-i clock-setup/utc boolean true
+d-i clock-setup/ntp boolean false
+d-i console-setup/ask_detect boolean false
+d-i console-setup/layoutcode string br
+
+####################################################################
+# Criação de usuário inicial
+####################################################################
+
+# Desabilitando o root
+
+d-i passwd/root-login boolean false
+
+# Usuário normal
+
+d-i passwd/user-fullname string siso_monitor
+d-i passwd/username string siso_monitor
+d-i passwd/user-password password @adminSD
+d-i passwd/user-password-again password @adminSD
+d-i passwd/auto-login boolean true
+d-i user-setup/allow-password-weak boolean true
+
+####################################################################
+# Desativando update automático
+####################################################################
+
+d-i pkgsel/updatedb boolean false
+
+####################################################################
+# Etapas adicionais
+####################################################################
+
+d-i preseed/late_command string \
+in-target sh -c 'mkdir /etc/xdg/xfce4/kiosk'; \
+in-target sh -c 'cat << "EOF">>  /etc/xdg/xfce4/kiosk/kioskrc'; \
+in-target sh -c '[xfce4-session]'; \'
+in-target sh -c 'SaveSession=NONE'; \
+in-target sh -c 'EOF'; \
+
+####################################################################
+# Instalando o Grub
+####################################################################
+
+d-i grub-installer/bootdev string /dev/sda
+d-i grub-installer/only_debian boolean true
+d-i grub-installer/with_other_os boolean true
+d-i grub-installer/grub2_instead_of_grub_legacy boolean true
+d-i cdrom-detect/eject boolean true
+d-i finish-install/reboot_in_progress note
+d-i debian-installer/exit/poweroff boolean true
