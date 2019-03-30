@@ -1,8 +1,4 @@
 #!/bin/bash
-
-# Atualização inicial do sistema
-#
-yum update -y
 #
 # Adicionando repositórios extras
 #
@@ -28,7 +24,10 @@ EOF
 # Instalando pacotes
 #
 yum install -y bzip2 certmonger curl epel-release fail2ban gcc git htop httpd iperf iptraf less links lsof make MariaDB-client mariadb-server multitail nano nmap ntp p7zip perl perl-IO-Tty perl-Encode-Detect perl-Net-SSLeay openssl php php-common php-gd php-mbstring php-mcrypt php-mysql php-xml psmisc python36u rar realmd rsync screen setroubleshoot-server sos tcpdump traceroute unrar unzip webmin wget zsh
-yum clean all
+#
+# Atualização inicial do sistema
+#
+yum update -y && yum clean all
 #
 # Instalando e configurando o ZSH
 #

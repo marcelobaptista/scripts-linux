@@ -1,0 +1,21 @@
+#!/bin/bash
+#
+# Adicionando repositórios extras
+#
+rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
+rpm -ivh http://linuxdownload.adobe.com/adobe-release/adobe-release-x86_64-1.0-1.noarch.rpm
+rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-adobe-linux
+yum install -y https://www.elrepo.org/elrepo-release-7.0-3.el7.elrepo.noarch.rpm http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm https://rpms.remirepo.net/enterprise/remi-release-7.rpm https://centos7.iuscommunity.org/ius-release.rpm yum-utils
+#
+# Atualização inicial do sistema
+#
+yum update -y
+yum groupinstall xfce
+yum remove gdm firewalld -y
+yum install alsa-{utils,firmware} alsa-plugins-pulseaudio autoconf automake bash-completion bc binutils bzip2 certmonger curl epel-release evince file-roller flash-plugin gcc git gnome-disk-utility gparted gtk3-devel gvfs-fuse gvfs-mtp htop light-locker lightdm lightdm-gtk lsof make mousepad mtr nano nautilus nautilus-image-converter network-manager-applet NetworkManager nm-connection-editor nmap ntfs-3g ntp pavucontrol ristretto rsync system-config-printer tar tcpdump traceroute unrar unzip vlc wget x264 xarchiver xdg-user-dirs xfce4-cpugraph-plugin xfce4-screenshooter xfce4-whiskermenu-plugin xvidcore
+sed -i 's/^SELINUX=.*$/SELINUX=disabled/' /etc/selinux/config
+sed -i 's/#PermitRootLogin yes/PermitRootLogin no/' /etc/ssh/sshd_config
+systemctl enable ntpd 
+systemctl restart sshd
+systemctl set-default graphical.target
+cat /dev/null > ~/.bash_history && history -c && exit
