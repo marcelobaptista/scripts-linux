@@ -64,4 +64,4 @@ genfstab -U /mnt >> /mnt/etc/fstab
 #Entrando no arch-root
 #
 cp arch-chroot.sh /mnt
-arch-chroot /mnt bash arch-chroot.sh install;reboot
+arch-chroot /mnt bash https://raw.githubusercontent.com/marcelobaptista/scripts-linux/master/arch-linux/arch-chroot.sh install;reboot
