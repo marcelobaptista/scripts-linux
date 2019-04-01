@@ -22,13 +22,13 @@ pacman -S grub os-prober --noconfirm && grub-install /dev/sda && grub-mkconfig -
 #
 wget -q https://raw.githubusercontent.com/marcelobaptista/scripts-linux/master/arch-linux/pacman.conf -O /etc/pacman.conf
 curl -O https://download.sublimetext.com/sublimehq-pub.gpg && sudo pacman-key --add sublimehq-pub.gpg && sudo pacman-key --lsign-key 8A8F901A && rm sublimehq-pub.gpg
-pacman -Syu
+pacman -Sy
 pacman -S reflector --noconfirm
 reflector --verbose --latest 10 --sort rate --save /etc/pacman.d/mirrorlist
 #
 #Instalando o XORG, interface gráfica XFCE, pacotes multimedia, driver de vídeo e pacotes adicionais
 #
-pacman -S alsa-{utils,plugins,firmware} a52dec anki arduino audacious bzip2 cups cups-pdf curl deezer dialog evince exfat-utils faac faad2 flac flashplugin flatpak-builder ffmpegthumbnailer filezilla firefox firefox-i18n-pt-br gcc gcompris-qt gimp git gnome-disk-utility go guake gvfs-mtp htop iperf file-roller jasper lame libdca libdv libmad libmpeg2 libmtp libreoffice-fresh libreoffice-fresh-pt-br libtheora libvorbis libxv lutris lxdm make nautilus nautilus-image-converter python-nautilus networkmanager network-manager-applet nm-connection-editor noto-fonts noto-fonts-extra numix-gtk-theme nfs-utils nmap openssh opera opera-ffmpeg-codecs p7zip pavucontrol pulseaudio pulseaudio-{equalizer,alsa} qbittorrent ristretto rsync screenfetch steam steam-native-runtime sublime-text-nightly supertux system-config-printer tar traceroute ttf-dejavu ttf-droid ttf-opensans ttf-roboto tuxpaint tuxracer unrar vlc wget xf86-video-vesa wavpack wine wine-mono winetricks x264 xarchiver xdg-user-dirs xfce4 xfce4-goodies xorg xorg-server xorg-xinit xvidcore zsh --noconfirm
+pacman -S alsa-{utils,plugins,firmware} a52dec anki arduino audacious cups cups-pdf dialog evince exfat-utils faac faad2 flac flashplugin flatpak-builder ffmpegthumbnailer filezilla firefox firefox-i18n-pt-br gcompris-qt gimp git gnome-disk-utility go guake gvfs-mtp htop iperf file-roller jasper lame libdca libdv libmad libmpeg2 libmtp libreoffice-fresh libreoffice-fresh-pt-br libtheora libvorbis libxv lutris lxdm nautilus nautilus-image-converter python-nautilus networkmanager network-manager-applet nm-connection-editor noto-fonts noto-fonts-extra numix-gtk-theme nfs-utils nmap opera opera-ffmpeg-codecs p7zip pavucontrol pulseaudio pulseaudio-{equalizer,alsa} qbittorrent ristretto rsync screenfetch steam steam-native-runtime sublime-text-nightly supertux system-config-printer traceroute ttf-dejavu ttf-droid ttf-opensans ttf-roboto tuxpaint tuxracer unrar vlc xf86-video-vesa wavpack wine wine-mono winetricks x264 xarchiver xdg-user-dirs xfce4 xfce4-goodies xorg xorg-server xorg-xinit xvidcore zsh --noconfirm
 #
 #Configurando o shell padrão para ZSH para todos os usuários
 #
@@ -56,7 +56,7 @@ git clone https://aur.archlinux.org/yay.git
 chmod -R 777 yay
 cd yay
 makepkg -si --noconfirm
-yay -Sy alacarte-xfce cover-thumbnailer-git downgrade etcher ezthumb gitkraken gksu gparted gstreamer0.10-base-plugins gstreamer0.10-base icu52 isomaster jdiskreport jre mtnm multisystem nautilus-admin ncurses5-compat-libs network-manager-applet ntfs-3g ocs-url pamac-aur paper-icon-theme plymouth samsung-unified-driver simplenote-electron-bin spotify ttf-fantasque-sans-mono ttf-ms-fonts ulauncher update-grub vmware-workstation xfce4-panel-profiles xfce4-goodies-meta --noconfirm
+yay -Sy alacarte-xfce cover-thumbnailer-git deezer downgrade etcher ezthumb gitkraken gksu gparted gstreamer0.10-base-plugins gstreamer0.10-base icu52 isomaster jdiskreport jre mtnm multisystem nautilus-admin ncurses5-compat-libs network-manager-applet ntfs-3g ocs-url pamac-aur paper-icon-theme plymouth samsung-unified-driver simplenote-electron-bin spotify ttf-fantasque-sans-mono ttf-ms-fonts ulauncher update-grub vmware-workstation xfce4-panel-profiles xfce4-goodies-meta --noconfirm
 cd /home/marcelo && git clone https://github.com/rpallai/flatpak-pt.git
 flatpak install flathub org.freedesktop.Platform/x86_64/18.08 --assumeyes
 flatpak install flathub org.freedesktop.Sdk/x86_64/18.08 --assumeyes
@@ -73,7 +73,7 @@ systemctl enable lxdm ; systemctl enable dhcpcd ; systemctl enable sshd ; system
 #
 #Instalando Kernel LTS"
 #
-pacman -S linux-lts linux-lts-headers nvidia-340xx-lts --noconfirm; update-grub
+pacman -S linux-lts linux-lts-headers nvidia-340xx-lts --noconfirm; grub-mkconfig -o /boot/grub/grub.cfg
 #
 #Alterando o idioma da interface"
 #
