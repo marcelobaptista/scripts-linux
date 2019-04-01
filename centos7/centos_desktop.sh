@@ -5,7 +5,9 @@
 rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
 rpm -ivh http://linuxdownload.adobe.com/adobe-release/adobe-release-x86_64-1.0-1.noarch.rpm
 rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-adobe-linux
+rpm --import https://download.sublimetext.com/sublimehq-rpm-pub.gpg
 yum install -y https://www.elrepo.org/elrepo-release-7.0-3.el7.elrepo.noarch.rpm http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm https://centos7.iuscommunity.org/ius-release.rpm yum-utils
+yum-config-manager --add-repo https://download.sublimetext.com/rpm/dev/x86_64/sublime-text.repo
 #
 # Atualização inicial do sistema
 #
@@ -21,7 +23,7 @@ systemctl set-default graphical.target
 # Instalando pacotes básicos e removendo os desnecessários
 #
 yum remove firewalld postfix -y
-yum install -y alsa-utils alsa-plugins-pulseaudio autoconf automake bash-completion bash-completion-extras bc bzip2 certmonger evince file-roller firefox flash-plugin gcc git gnome-calculator gnome-disk-utility gparted gtk3-devel gvfs-fuse gvfs-mtp htop light-locker mlocate mousepad mtr nano nautilus nautilus-image-converter network-manager-applet nmap ntfs-3g ntp numix-gtk-theme ristretto system-config-printer tcpdump traceroute unrar unzip vlc x264 xarchiver xdg-user-dirs xfce4-notifyd xfce4-screenshooter xfce4-whiskermenu-plugin xvidcore wget
+yum install -y alsa-utils alsa-plugins-pulseaudio autoconf automake bash-completion bash-completion-extras bc bzip2 certmonger evince file-roller firefox flash-plugin gcc git gnome-calculator gnome-disk-utility gparted gtk3-devel gvfs-fuse gvfs-mtp htop light-locker mlocate mousepad mtr nano nautilus nautilus-image-converter network-manager-applet nmap ntfs-3g ntp numix-gtk-theme ristretto sublime-text system-config-printer tcpdump traceroute unrar unzip vlc x264 xarchiver xdg-user-dirs xfce4-notifyd xfce4-screenshooter xfce4-whiskermenu-plugin xvidcore wget
 yum install -y https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
 wget -qO- https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-icon-theme/master/install.sh | sh
 wget "https://sourceforge.net/projects/openofficeorg.mirror/files/4.1.6/binaries/pt-BR/Apache_OpenOffice_4.1.6_Linux_x86-64_install-rpm_pt-BR.tar.gz/download" -O Apache_OpenOffice_4.1.6_Linux_x86-64_pt-BR.tar.gz
