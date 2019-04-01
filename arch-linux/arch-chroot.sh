@@ -20,7 +20,8 @@ pacman -S grub os-prober --noconfirm && grub-install /dev/sda && grub-mkconfig -
 #
 #Configurando mirrorlist
 #
-wget -q https://raw.githubusercontent.com/marcelobaptista/scripts-linux/arch-linux/master/pacman.conf -O /etc/pacman.conf
+wget -q https://raw.githubusercontent.com/marcelobaptista/scripts-linux/master/arch-linux/pacman.conf -O /etc/pacman.conf
+curl -O https://download.sublimetext.com/sublimehq-pub.gpg && sudo pacman-key --add sublimehq-pub.gpg && sudo pacman-key --lsign-key 8A8F901A && rm sublimehq-pub.gpg
 pacman -Syu
 pacman -S reflector --noconfirm
 reflector --verbose --latest 10 --sort rate --save /etc/pacman.d/mirrorlist
@@ -44,7 +45,7 @@ chsh -s /bin/zsh
 #
 #Configurando conta de usuário e configurando permissão administrativa
 #
-sudo useradd -m -G sys,lp,network,video,optical,storage,scanner,power,wheel marcelo
+useradd -m -G sys,lp,network,video,optical,storage,scanner,power,wheel marcelo
 printf "123\n123\n" | passwd marcelo
 xdg-user-dirs-update
 sed -i 's/# %wheel/%wheel/g' /etc/sudoers
@@ -54,8 +55,8 @@ sed -i 's/# %wheel/%wheel/g' /etc/sudoers
 git clone https://aur.archlinux.org/yay.git
 chmod -R 777 yay
 cd yay
-sudo -u marcelo makepkg -si --noconfirm
-sudo -u marcelo yay -Sy alacarte-xfce cover-thumbnailer-git downgrade etcher ezthumb gitkraken gksu gparted gstreamer0.10-base-plugins gstreamer0.10-base icu52 isomaster jdiskreport jre mtnm multisystem nautilus-admin ncurses5-compat-libs network-manager-applet ntfs-3g ocs-url pamac-aur paper-icon-theme plymouth samsung-unified-driver simplenote-electron-bin spotify ttf-fantasque-sans-mono ttf-ms-fonts ulauncher update-grub vmware-workstation xfce4-panel-profiles xfce4-goodies-meta --noconfirm
+makepkg -si --noconfirm
+yay -Sy alacarte-xfce cover-thumbnailer-git downgrade etcher ezthumb gitkraken gksu gparted gstreamer0.10-base-plugins gstreamer0.10-base icu52 isomaster jdiskreport jre mtnm multisystem nautilus-admin ncurses5-compat-libs network-manager-applet ntfs-3g ocs-url pamac-aur paper-icon-theme plymouth samsung-unified-driver simplenote-electron-bin spotify ttf-fantasque-sans-mono ttf-ms-fonts ulauncher update-grub vmware-workstation xfce4-panel-profiles xfce4-goodies-meta --noconfirm
 cd /home/marcelo && git clone https://github.com/rpallai/flatpak-pt.git
 flatpak install flathub org.freedesktop.Platform/x86_64/18.08 --assumeyes
 flatpak install flathub org.freedesktop.Sdk/x86_64/18.08 --assumeyes
@@ -77,6 +78,5 @@ pacman -S linux-lts linux-lts-headers nvidia-340xx-lts --noconfirm; update-grub
 #Alterando o idioma da interface"
 #
 localectl set-locale LANG=pt_BR.UTF-8
-rm -rf /home/marcelo/.config
-rm -rf /home/marcelo/.cache
-cat /dev/null > ~/.zsh_history && history -c && exit
+
+cat /dev/null > ~/.bash_history && history -c && exit
