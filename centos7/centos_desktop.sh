@@ -5,9 +5,7 @@
 rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
 rpm -ivh http://linuxdownload.adobe.com/adobe-release/adobe-release-x86_64-1.0-1.noarch.rpm
 rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-adobe-linux
-rpm --import https://download.sublimetext.com/sublimehq-rpm-pub.gpg
 yum install -y https://www.elrepo.org/elrepo-release-7.0-3.el7.elrepo.noarch.rpm http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm https://centos7.iuscommunity.org/ius-release.rpm yum-utils
-yum-config-manager --add-repo https://download.sublimetext.com/rpm/dev/x86_64/sublime-text.repo
 #
 # Atualização inicial do sistema
 #
@@ -23,22 +21,37 @@ systemctl set-default graphical.target
 # Instalando pacotes básicos e removendo os desnecessários
 #
 yum remove firewalld postfix -y
-yum install -y alsa-utils alsa-plugins-pulseaudio autoconf automake bash-completion bash-completion-extras bc bzip2 certmonger evince file-roller firefox flash-plugin gcc git gnome-calculator gnome-disk-utility gparted gtk3-devel gvfs-fuse gvfs-mtp htop light-locker mlocate mousepad mtr nano nautilus nautilus-image-converter network-manager-applet nmap ntfs-3g ntp numix-gtk-theme ristretto sublime-text system-config-printer tcpdump traceroute unrar unzip vlc x264 xarchiver xdg-user-dirs xfce4-notifyd xfce4-screenshooter xfce4-whiskermenu-plugin xvidcore wget
+yum install -y alsa-utils alsa-plugins-pulseaudio autoconf automake bash-completion bash-completion-extras bc bzip2 certmonger evince file-roller firefox flash-plugin gcc git gnome-calculator gnome-disk-utility gparted gtk3-devel gvfs-fuse gvfs-mtp htop light-locker mlocate mousepad mtr nano nautilus nautilus-image-converter network-manager-applet nmap ntfs-3g ntp numix-gtk-theme paper-icon-theme ristretto system-config-printer tcpdump traceroute unrar unzip vlc x264 xarchiver xdg-user-dirs xfce4-notifyd xfce4-screenshooter xfce4-whiskermenu-plugin xvidcore wget
 yum install -y https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
 wget -qO- https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-icon-theme/master/install.sh | sh
-wget "https://sourceforge.net/projects/openofficeorg.mirror/files/4.1.6/binaries/pt-BR/Apache_OpenOffice_4.1.6_Linux_x86-64_install-rpm_pt-BR.tar.gz/download" -O Apache_OpenOffice_4.1.6_Linux_x86-64_pt-BR.tar.gz
-tar -xvf Apache_OpenOffice_4.1.6_Linux_x86-64_pt-BR.tar.gz
-rpm -Uvih pt-BR/RPMS/*.rpm
-rpm -Uvih pt-BR/RPMS/desktop-integration/openoffice4.1.6-redhat-menus-4.1.6-9790.noarch.rpm
-rm -rf pt-BR Apache_OpenOffice_4.1.6_Linux_x86-64_pt-BR.tar.gz
+wget https://github.com/marcelobaptista/scripts-linux/raw/master/centos7/jre-8u201-linux-x64.rpm
+rpm -ivh jre-8u201-linux-x64.rpm
+wget http://tdf.c3sl.ufpr.br/libreoffice/stable/6.2.2/rpm/x86_64/LibreOffice_6.2.2_Linux_x86-64_rpm.tar.gz
+wget http://tdf.c3sl.ufpr.br/libreoffice/stable/6.2.2/rpm/x86_64/LibreOffice_6.2.2_Linux_x86-64_rpm_langpack_pt-BR.tar.gz
+tar -vzxf LibreOffice_6.2.2_Linux_x86-64_rpm.tar.gz
+tar -vzxf LibreOffice_6.2.2_Linux_x86-64_rpm_langpack_pt-BR.tar.gz
+rpm -vih LibreOffice_6.2.2.2_Linux_x86-64_rpm/RPMS/*.rpm
+rpm -vih LibreOffice_6.2.2.2_Linux_x86-64_rpm_langpack_pt-BR/RPMS/*.rpm
+rm -rf LibreOffice_6.2.2.2_Linux_x86-64_rpm LibreOffice_6.2.2.2_Linux_x86-64_rpm_langpack_pt-BR *.tar.gz jre-8u201-linux-x64.rpm
 yum clean all
+#
+# Instalando e configurando o ZSH
+#
+git clone https://github.com/robbyrussell/oh-my-zsh.git /etc/oh-my-zsh
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git /etc/oh-my-zsh/custom/plugins/
+wget https://raw.githubusercontent.com/marcelobaptista/scripts-linux/master/.zshrc /etc/skel/.zshrc
+mkdir -p /etc/skel/.oh-my-zsh/cache
+cp /etc/skel/.zshrc $HOME
+sed -i 's/SHELL=\/bin\/bash/SHELL=\/bin\/zsh/' /etc/default/useradd
+chsh -s /bin/zsh
 #
 # Aplicando configurações adicionais
 #
 sed -i 's/^SELINUX=.*$/SELINUX=disabled/' /etc/selinux/config
 sed -i 's/#PermitRootLogin yes/PermitRootLogin no/' /etc/ssh/sshd_config
 systemctl restart sshd
-source /etc/profile.d/bash_completion.sh && updatedb
+wget https://github.com/marcelobaptista/scripts-linux/blob/master/centos7/.config.tar.gz
+tar -vzxf .config.tar.gz && cp -rf .config /etc/skel/
 mkdir /etc/xdg/xfce4/kiosk
 cat << "EOF">>  /etc/xdg/xfce4/kiosk/kioskrc
 [xfce4-session]
