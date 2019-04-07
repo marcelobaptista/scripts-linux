@@ -8,7 +8,7 @@ yum-config-manager --disable remi-php54 && yum-config-manager --enable remi-php7
 cat <<"EOF">/etc/yum.repos.d/mariadb.repo
 [mariadb]
 name = MariaDB
-baseurl = http://yum.mariadb.org/10.3/rhel7-amd64
+baseurl = https://yum.mariadb.org/10.4.3/centos7-amd64/
 gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
 gpgcheck=1
 EOF
@@ -32,14 +32,10 @@ yum install -y bzip2 certmonger epel-release fail2ban gcc git htop httpd iperf i
 # Instalando e configurando o ZSH
 #
 git clone https://github.com/robbyrussell/oh-my-zsh.git /etc/oh-my-zsh
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git 
-cp -rf zsh-syntax-highlighting/ /etc/oh-my-zsh/custom/plugins/
-touch /etc/skel/.zshrc
-cp /etc/oh-my-zsh/templates/zshrc.zsh-template /etc/skel/.zshrc
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git /etc/oh-my-zsh/custom/plugins/
+wget https://raw.githubusercontent.com/marcelobaptista/scripts-linux/master/.zshrc /etc/skel/.zshrc
 mkdir -p /etc/skel/.oh-my-zsh/cache
-sed -i 's/export ZSH=$HOME\/.oh-my-zsh/export ZSH=\/etc\/oh-my-zsh/' /etc/skel/.zshrc
-sed -i 's/robbyrussell/gianu/' /etc/skel/.zshrc
-cp /etc/skel/.zshrc /root/.zshrc && cp /etc/skel/.zshrc $HOME
+cp /etc/skel/.zshrc $HOME
 sed -i 's/SHELL=\/bin\/bash/SHELL=\/bin\/zsh/' /etc/default/useradd
 chsh -s /bin/zsh
 #
