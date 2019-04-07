@@ -50,7 +50,7 @@ chsh -s /bin/zsh
 sed -i 's/^SELINUX=.*$/SELINUX=disabled/' /etc/selinux/config
 sed -i 's/#PermitRootLogin yes/PermitRootLogin no/' /etc/ssh/sshd_config
 systemctl restart sshd
-wget https://github.com/marcelobaptista/scripts-linux/blob/master/centos7/.config.tar.gz
+wget https://github.com/marcelobaptista/scripts-linux/raw/master/centos7/.config.tar.gz
 tar -vzxf .config.tar.gz && cp -rf .config /etc/skel/
 mkdir /etc/xdg/xfce4/kiosk
 cat << "EOF">>  /etc/xdg/xfce4/kiosk/kioskrc
