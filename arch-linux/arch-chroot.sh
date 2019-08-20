@@ -33,8 +33,9 @@ pacman -S alsa-{utils,plugins,firmware} a52dec anki arduino audacious cups cups-
 #Configurando o shell padrão para ZSH para todos os usuários
 #
 git clone https://github.com/robbyrussell/oh-my-zsh.git /etc/oh-my-zsh
+sudo rm -rf /etc/oh-my-zsh/custom/plugins/*
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git /etc/oh-my-zsh/custom/plugins/
-wget https://raw.githubusercontent.com/marcelobaptista/scripts-linux/master/.zshrc /etc/skel/.zshrc
+wget https://raw.githubusercontent.com/marcelobaptista/scripts-linux/master/.zshrc -O /etc/skel/.zshrc
 mkdir -p /etc/skel/.oh-my-zsh/cache
 cp /etc/skel/.zshrc $HOME
 sed -i 's/SHELL=\/bin\/bash/SHELL=\/bin\/zsh/' /etc/default/useradd
