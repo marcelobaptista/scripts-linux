@@ -26,20 +26,21 @@ yum install -y https://dl.google.com/linux/direct/google-chrome-stable_current_x
 wget -qO- https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-icon-theme/master/install.sh | sh
 wget https://github.com/marcelobaptista/scripts-linux/raw/master/centos7/jre-8u201-linux-x64.rpm
 rpm -ivh jre-8u201-linux-x64.rpm
-wget http://tdf.c3sl.ufpr.br/libreoffice/stable/6.2.2/rpm/x86_64/LibreOffice_6.2.2_Linux_x86-64_rpm.tar.gz
-wget http://tdf.c3sl.ufpr.br/libreoffice/stable/6.2.2/rpm/x86_64/LibreOffice_6.2.2_Linux_x86-64_rpm_langpack_pt-BR.tar.gz
-tar -vzxf LibreOffice_6.2.2_Linux_x86-64_rpm.tar.gz
-tar -vzxf LibreOffice_6.2.2_Linux_x86-64_rpm_langpack_pt-BR.tar.gz
-rpm -vih LibreOffice_6.2.2.2_Linux_x86-64_rpm/RPMS/*.rpm
-rpm -vih LibreOffice_6.2.2.2_Linux_x86-64_rpm_langpack_pt-BR/RPMS/*.rpm
-rm -rf LibreOffice_6.2.2.2_Linux_x86-64_rpm LibreOffice_6.2.2.2_Linux_x86-64_rpm_langpack_pt-BR *.tar.gz jre-8u201-linux-x64.rpm
+wget http://tdf.c3sl.ufpr.br/libreoffice/stable/6.3.0/rpm/x86_64/LibreOffice_6.3.0_Linux_x86-64_rpm.tar.gz
+wget http://tdf.c3sl.ufpr.br/libreoffice/stable/6.3.0/rpm/x86_64/LibreOffice_6.3.0_Linux_x86-64_rpm_langpack_pt-BR.tar.gz
+tar -vzxf LibreOffice_6.3.0_Linux_x86-64_rpm.tar.gz
+tar -vzxf LibreOffice_6.3.0_Linux_x86-64_rpm_langpack_pt-BR.tar.gz
+rpm -vih LibreOffice_6.3.0_Linux_x86-64_rpm/RPMS/*.rpm
+rpm -vih LibreOffice_6.3.0_Linux_x86-64_rpm_langpack_pt-BR/RPMS/*.rpm
+rm -rf LibreOffice_6.3.0_Linux_x86-64_rpm LibreOffice_6.3.0_Linux_x86-64_rpm_langpack_pt-BR *.tar.gz jre-8u201-linux-x64.rpm
 yum clean all
 #
 # Instalando e configurando o ZSH
 #
 git clone https://github.com/robbyrussell/oh-my-zsh.git /etc/oh-my-zsh
+rm -rf /etc/oh-my-zsh/custom/plugins/*
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git /etc/oh-my-zsh/custom/plugins/
-wget https://raw.githubusercontent.com/marcelobaptista/scripts-linux/master/.zshrc /etc/skel/.zshrc
+wget https://raw.githubusercontent.com/marcelobaptista/scripts-linux/master/.zshrc -O /etc/skel/.zshrc
 mkdir -p /etc/skel/.oh-my-zsh/cache
 cp /etc/skel/.zshrc $HOME
 sed -i 's/SHELL=\/bin\/bash/SHELL=\/bin\/zsh/' /etc/default/useradd
