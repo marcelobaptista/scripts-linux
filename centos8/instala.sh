@@ -4,7 +4,7 @@
 #
 rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
 dnf install -y https://www.elrepo.org/elrepo-release-8.0-2.el8.elrepo.noarch.rpm https://rpms.remirepo.net/enterprise/remi-release-8.rpm 
-cat <<"EOF">/etc/dnf.repos.d/mariadb.repo
+cat <<"EOF">/etc/yum.repos.d/mariadb.repo
 [mariadb]
 name = MariaDB
 baseurl = http://dnf.mariadb.org/10.4/centos8-amd64
@@ -18,7 +18,7 @@ dnf update -y
 #
 # Instalando pacotes básicos e a pilha LAMP
 #
-dnf install -y bash-completion boost-program-options bzip2 certmonger cockpit cockpit-pcp curl epel-release dn-automatic dnf-utils fail2ban gcc git htop httpd httpd-tools iptraf less lsof make MariaDB-client mariadb-server mlocate nano net-tools nmap ntp p7zip perl perl-Encode-Detect perl-Net-SSLeay openssl php php-common php-fpm php-gd php-mbstring php-mysqlnd php-opcache php-xml psmisc python3 realmd rkhunter rsync screen setroubleshoot-server sos tcpdump traceroute unzip vim  wget zsh
+dnf install -y bash-completion boost-program-options bzip2 certmonger cockpit cockpit-pcp curl epel-release dnf-automatic dnf-utils fail2ban gcc git htop httpd httpd-tools iptraf less lsof make mlocate nano net-tools nmap p7zip perl perl-Encode-Detect perl-Net-SSLeay openssl php php-common php-fpm php-gd php-mbstring php-mysqlnd php-opcache php-xml psmisc python3 realmd rkhunter rsync screen setroubleshoot-server sos tcpdump traceroute unzip vim wget zsh
 dnf install MariaDB-server MariaDB-client --disablerepo=AppStream 
 #
 # Instalando ZSH
