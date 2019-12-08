@@ -7,8 +7,8 @@ dnf install -y https://www.elrepo.org/elrepo-release-8.0-2.el8.elrepo.noarch.rpm
 cat <<"EOF">/etc/yum.repos.d/mariadb.repo
 [mariadb]
 name = MariaDB
-baseurl = http://dnf.mariadb.org/10.4/centos8-amd64
-gpgkey=https://dnf.mariadb.org/RPM-GPG-KEY-MariaDB
+baseurl = http://yum.mariadb.org/10.4/centos8-amd64
+gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
 gpgcheck=1
 EOF
 #
